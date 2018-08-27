@@ -22,7 +22,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,15 +56,6 @@ public class DefaultUserContextTest {
     }
 
     @Test
-    public void isCheckUpdatesSystemDefault() {
-        System.setProperty(DefaultUserContext.CHECK_FOR_UPDATES_PROP, "false");
-        assertFalse(victim.isCheckForUpdates());
-        victim.setBooleanPreference(BooleanUserPreference.CHECK_UPDATES, true);
-        assertTrue(victim.isCheckForUpdates());
-        System.clearProperty(DefaultUserContext.CHECK_FOR_UPDATES_PROP);
-    }
-
-    @Test
     public void isCheckForNews() {
         victim.setBooleanPreference(BooleanUserPreference.CHECK_FOR_NEWS, false);
         assertFalse(victim.isCheckForNews());
@@ -96,6 +86,15 @@ public class DefaultUserContextTest {
         assertFalse(victim.isSavePwdInWorkspaceFile());
         victim.setBooleanPreference(BooleanUserPreference.SAVE_PWD_IN_WORKSPACE, true);
         assertTrue(victim.isSavePwdInWorkspaceFile());
+    }
+
+    @Test
+    public void isCheckUpdatesSystemDefault() {
+        System.setProperty(DefaultUserContext.CHECK_FOR_UPDATES_PROP, "false");
+        assertFalse(victim.isCheckForUpdates());
+        victim.setBooleanPreference(BooleanUserPreference.CHECK_UPDATES, true);
+        assertTrue(victim.isCheckForUpdates());
+        System.clearProperty(DefaultUserContext.CHECK_FOR_UPDATES_PROP);
     }
 
     @Test
@@ -138,6 +137,23 @@ public class DefaultUserContextTest {
         victim.setBooleanPreference(BooleanUserPreference.DONATION_NOTIFICATION, true);
         assertTrue(victim.isDonationNotification());
         System.clearProperty(DefaultUserContext.DONATE_NOTIFICATION_PROP);
+    }
+
+    @Test
+    public void isPremiumModules() {
+        victim.setBooleanPreference(BooleanUserPreference.PREMIUM_MODULES, false);
+        assertFalse(victim.isFetchPremiumModules());
+        victim.setBooleanPreference(BooleanUserPreference.PREMIUM_MODULES, true);
+        assertTrue(victim.isFetchPremiumModules());
+    }
+
+    @Test
+    public void isPremiumModulesSystemDefault() {
+        System.setProperty(DefaultUserContext.FETCH_PREMIUM_MODULES_PROP, "false");
+        assertFalse(victim.isFetchPremiumModules());
+        victim.setBooleanPreference(BooleanUserPreference.PREMIUM_MODULES, true);
+        assertTrue(victim.isFetchPremiumModules());
+        System.clearProperty(DefaultUserContext.FETCH_PREMIUM_MODULES_PROP);
     }
 
     @Test
